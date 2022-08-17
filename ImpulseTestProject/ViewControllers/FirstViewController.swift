@@ -41,7 +41,7 @@ class FirstViewController: UIViewController {
         
         var constraints = [NSLayoutConstraint]()
         constraints.append(startButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor))
-        constraints.append(startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40))
+        constraints.append(startButton.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor))
         constraints.append(startButton.widthAnchor.constraint(equalToConstant: 244))
         constraints.append(startButton.heightAnchor.constraint(equalToConstant: 52))
         NSLayoutConstraint.activate(constraints)
