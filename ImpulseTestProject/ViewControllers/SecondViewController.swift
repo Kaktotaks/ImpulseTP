@@ -47,6 +47,7 @@ class SecondViewController: UIViewController {
     private lazy var mainLabels = ["Boost Productivity", "Work Seamlessly", "Achieve Your Goals"]
     private lazy var labels = ["Take your productivity to the next level", "Get your work done seamlessly without interruption", "Boosted productivity will help you achieve the desired goals"]
     
+    // MARK: - View life cicle
     override func viewDidLoad() {
         super.viewDidLoad()
         scrolView.delegate = self
@@ -55,7 +56,11 @@ class SecondViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+        configureLayoutSubviews()
+    }
+    
+    // MARK: - Functions
+    private func configureLayoutSubviews() {
         view.addSubview(scrolView)
         view.addSubview(pageControll)
         view.addSubview(nextButton)
@@ -78,10 +83,8 @@ class SecondViewController: UIViewController {
         if scrolView.subviews.count == 2 {
             configureScrollView()
         }
-        
     }
     
-    // MARK: - Functions
     private func configureScrollView() {
         scrolView.contentSize = CGSize(width: view.frame.size.width*3, height: scrolView.frame.size.height)
         scrolView.isPagingEnabled = true
@@ -111,9 +114,9 @@ class SecondViewController: UIViewController {
             let imageView = UIImageView(frame: CGRect(x: view.frame.midX - (view.frame.width / 3), y: view.frame.midY - (view.frame.height / 1.6) + 40, width: view.frame.width / 1.4, height: view.frame.height / 1.4))
             imageView.contentMode = .scaleAspectFit
             imageView.image = uiImage
-
+            
             scrolView.addSubview(page)
-
+            
             page.addSubview(label)
             page.addSubview(mainLabel)
             page.addSubview(imageView)
