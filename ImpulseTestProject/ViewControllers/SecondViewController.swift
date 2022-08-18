@@ -23,7 +23,7 @@ class SecondViewController: UIViewController {
     private lazy var pageControll: UIPageControl = {
         let pageControll = UIPageControl()
         pageControll.numberOfPages = 3
-        pageControll.backgroundColor = .gray
+        pageControll.backgroundColor = .black
         pageControll.addTarget(self,
                                action: #selector(pageControllDidChanged(_:)),
                                for: .valueChanged)
@@ -43,9 +43,14 @@ class SecondViewController: UIViewController {
         return nextButton
     }()
     
+    private lazy var images = ["firstImage", "secondImage", "thirdImage"]
+    private lazy var mainLabels = ["Boost Productivity", "Work Seamlessly", "Achieve Your Goals"]
+    private lazy var labels = ["Take your productivity to the next level", "Get your work done seamlessly without interruption", "Boosted productivity will help you achieve the desired goals"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         scrolView.delegate = self
+        navigationController?.isNavigationBarHidden = true
     }
     
     override func viewDidLayoutSubviews() {
@@ -54,7 +59,7 @@ class SecondViewController: UIViewController {
         view.addSubview(scrolView)
         view.addSubview(pageControll)
         view.addSubview(nextButton)
-        scrolView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height - 200)
+        scrolView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height - (view.frame.height / 5))
         
         var constraints = [NSLayoutConstraint]()
         
@@ -82,29 +87,36 @@ class SecondViewController: UIViewController {
         scrolView.isPagingEnabled = true
         scrolView.showsVerticalScrollIndicator = false
         scrolView.showsHorizontalScrollIndicator = false
-        let colors: [UIColor] = [
-            .systemRed,
-            .systemYellow,
-            .systemGreen
-        ]
-        
-//        let images = ["firstImage", "secondImage", "thirdImage"]
-//        let mainLabels = ["First", "Second", "Third"]
-//        let labels = ["First", "Second", "Third"]
         
         for x in 0..<3 {
             let page = UIView(frame: CGRect(x: CGFloat(x) * view.frame.size.width,
-                                            y: 0,
+                                            y: view.safeAreaInsets.bottom,
                                             width: view.frame.size.width,
                                             height: scrolView.frame.size.height))
+            page.translatesAutoresizingMaskIntoConstraints = false
             
-//            let image = UIImage(named: images[x])
+            let label = UILabel(frame: CGRect(x: page.bounds.midX - 130, y: page.bounds.maxY - 110, width: 260, height: 50))
+            label.numberOfLines = 0
+            label.textAlignment = .center
+            label.textColor = .white
+            label.text = labels[x]
+            
+            let mainLabel = UILabel(frame: CGRect(x: page.bounds.midX - 100, y: page.bounds.maxY - 150, width: 200, height: 20))
+            mainLabel.textAlignment = .center
+            mainLabel.font = .systemFont(ofSize: 22, weight: .bold)
+            mainLabel.textColor = .white
+            mainLabel.text = mainLabels[x]
+            
+            let uiImage = UIImage(named: "\(images[x])")
+            let imageView = UIImageView(frame: CGRect(x: view.frame.midX - (view.frame.width / 3), y: view.frame.midY - (view.frame.height / 1.6) + 40, width: view.frame.width / 1.4, height: view.frame.height / 1.4))
+            imageView.contentMode = .scaleAspectFit
+            imageView.image = uiImage
 
-            
-            
-            page.backgroundColor = colors[x]
             scrolView.addSubview(page)
-//            page.addSubview(image)
+
+            page.addSubview(label)
+            page.addSubview(mainLabel)
+            page.addSubview(imageView)
         }
     }
     
