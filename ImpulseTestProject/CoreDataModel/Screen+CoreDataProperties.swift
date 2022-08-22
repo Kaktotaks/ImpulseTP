@@ -2,7 +2,7 @@
 //  Screen+CoreDataProperties.swift
 //  ImpulseTestProject
 //
-//  Created by Леонід Шевченко on 17.08.2022.
+//  Created by Леонід Шевченко on 22.08.2022.
 //
 //
 
@@ -16,7 +16,7 @@ extension Screen {
         return NSFetchRequest<Screen>(entityName: "Screen")
     }
 
-    @NSManaged public var watched: Bool
+    @NSManaged public var watched: Int16
 
 }
 

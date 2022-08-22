@@ -2,7 +2,7 @@
 //  Screen+CoreDataClass.swift
 //  ImpulseTestProject
 //
-//  Created by Леонід Шевченко on 17.08.2022.
+//  Created by Леонід Шевченко on 22.08.2022.
 //
 //
 

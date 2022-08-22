@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E4355FDF28B4078B007ADB75 /* Screen+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4355FDD28B4078B007ADB75 /* Screen+CoreDataClass.swift */; };
+		E4355FE028B4078B007ADB75 /* Screen+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4355FDE28B4078B007ADB75 /* Screen+CoreDataProperties.swift */; };
 		E46D3A7828ACD8D400CD4776 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46D3A7728ACD8D400CD4776 /* AppDelegate.swift */; };
 		E46D3A7A28ACD8D400CD4776 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46D3A7928ACD8D400CD4776 /* SceneDelegate.swift */; };
 		E46D3A7C28ACD8D400CD4776 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46D3A7B28ACD8D400CD4776 /* FirstViewController.swift */; };
@@ -14,13 +16,13 @@
 		E46D3A8228ACD8D400CD4776 /* ImpulseTestProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E46D3A8028ACD8D400CD4776 /* ImpulseTestProject.xcdatamodeld */; };
 		E46D3A8428ACD8D500CD4776 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E46D3A8328ACD8D500CD4776 /* Assets.xcassets */; };
 		E46D3A8728ACD8D500CD4776 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E46D3A8528ACD8D500CD4776 /* LaunchScreen.storyboard */; };
-		E46D3A9028ACD93B00CD4776 /* Screen+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46D3A8E28ACD93B00CD4776 /* Screen+CoreDataClass.swift */; };
-		E46D3A9128ACD93B00CD4776 /* Screen+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46D3A8F28ACD93B00CD4776 /* Screen+CoreDataProperties.swift */; };
 		E46D3A9528ACD9C600CD4776 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46D3A9428ACD9C600CD4776 /* SecondViewController.swift */; };
 		E46D3A9728ACD9EA00CD4776 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46D3A9628ACD9EA00CD4776 /* ThirdViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E4355FDD28B4078B007ADB75 /* Screen+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Screen+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E4355FDE28B4078B007ADB75 /* Screen+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Screen+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E46D3A7428ACD8D400CD4776 /* ImpulseTestProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImpulseTestProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E46D3A7728ACD8D400CD4776 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E46D3A7928ACD8D400CD4776 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,8 +32,6 @@
 		E46D3A8328ACD8D500CD4776 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E46D3A8628ACD8D500CD4776 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E46D3A8828ACD8D500CD4776 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E46D3A8E28ACD93B00CD4776 /* Screen+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Screen+CoreDataClass.swift"; sourceTree = "<group>"; };
-		E46D3A8F28ACD93B00CD4776 /* Screen+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Screen+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E46D3A9428ACD9C600CD4776 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		E46D3A9628ACD9EA00CD4776 /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,8 +82,8 @@
 		E46D3A9228ACD94200CD4776 /* CoreDataModel */ = {
 			isa = PBXGroup;
 			children = (
-				E46D3A8E28ACD93B00CD4776 /* Screen+CoreDataClass.swift */,
-				E46D3A8F28ACD93B00CD4776 /* Screen+CoreDataProperties.swift */,
+				E4355FDD28B4078B007ADB75 /* Screen+CoreDataClass.swift */,
+				E4355FDE28B4078B007ADB75 /* Screen+CoreDataProperties.swift */,
 			);
 			path = CoreDataModel;
 			sourceTree = "<group>";
@@ -169,12 +169,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4355FDF28B4078B007ADB75 /* Screen+CoreDataClass.swift in Sources */,
 				E46D3A7C28ACD8D400CD4776 /* FirstViewController.swift in Sources */,
-				E46D3A9128ACD93B00CD4776 /* Screen+CoreDataProperties.swift in Sources */,
 				E46D3A8228ACD8D400CD4776 /* ImpulseTestProject.xcdatamodeld in Sources */,
 				E46D3A7828ACD8D400CD4776 /* AppDelegate.swift in Sources */,
 				E46D3A9528ACD9C600CD4776 /* SecondViewController.swift in Sources */,
-				E46D3A9028ACD93B00CD4776 /* Screen+CoreDataClass.swift in Sources */,
+				E4355FE028B4078B007ADB75 /* Screen+CoreDataProperties.swift in Sources */,
 				E46D3A9728ACD9EA00CD4776 /* ThirdViewController.swift in Sources */,
 				E46D3A7A28ACD8D400CD4776 /* SceneDelegate.swift in Sources */,
 			);
