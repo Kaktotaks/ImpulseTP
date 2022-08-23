@@ -56,6 +56,7 @@ class SecondViewController: UIViewController {
     
     private lazy var coreDatadScreen: [Screen]? = nil
     private lazy var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private lazy var count = 0
     
     // MARK: - View life cicle
     override func viewDidLoad() {
@@ -162,8 +163,8 @@ class SecondViewController: UIViewController {
     @objc func continueButtonPressed() {
         print("ContinueButton pressed")
         self.fetchCoreData()
-        let screen = Screen(context: self.context)
-        if screen.watched == 1 {
+        
+        if count >= 1 {
             let alert = UIAlertController(
                 title: "Thank you for your interest",
                 message: "The functionality is under development",
@@ -172,13 +173,25 @@ class SecondViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
         
-        screen.watched += 1
+        let thirdVC = UINavigationController(rootViewController: ThirdViewController())
+        thirdVC.modalPresentationStyle = .popover
+        thirdVC.modalTransitionStyle = .coverVertical
+        present(thirdVC, animated: true)
         
+        // Create a cd object
+        let screen = Screen(context: self.context)
+        var watched = screen.watched
+        count = 1
+        screen.watched = Int16(count)
+        
+        // Save the data
         do {
             try self.context.save()
         } catch {
             print("An error while saving context")
         }
+        // Re-fetch data
+        self.fetchCoreData()
     }
     
     @objc private func pageControllDidChanged(_ sender: UIPageControl) {
@@ -190,10 +203,12 @@ class SecondViewController: UIViewController {
     
     private func fetchCoreData() {
         // Fetch data from Core Data
-        do {
-            self.coreDatadScreen = try context.fetch(Screen.fetchRequest())
-        } catch {
-            print("An error while fetching some data from Core Data")
+        DispatchQueue.main.async {
+            do {
+                self.coreDatadScreen = try self.context.fetch(Screen.fetchRequest())
+            } catch {
+                print("An error while fetching some data from Core Data")
+            }
         }
     }
 }

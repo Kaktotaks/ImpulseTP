@@ -8,6 +8,7 @@
 import UIKit
 
 class ThirdViewController: UIViewController {
+    // MARK: - Variables/Constants
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.backgroundColor = .darkGray
@@ -18,7 +19,6 @@ class ThirdViewController: UIViewController {
         stackView.layer.cornerRadius = 30
         return stackView
     }()
-    
     private lazy var progressView: UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .default)
         progressView.trackTintColor = .lightGray
@@ -27,10 +27,8 @@ class ThirdViewController: UIViewController {
         progressView.clipsToBounds = true
         return progressView
     }()
-    
     private let progress = Progress(totalUnitCount: 60)
     private var timer = Timer()
-    
     private lazy var timerLabel: UILabel = {
         let timerLabel = UILabel()
         timerLabel.textColor = .white
@@ -41,7 +39,6 @@ class ThirdViewController: UIViewController {
         timerLabel.adjustsFontSizeToFitWidth = true
         return timerLabel
     }()
-    
     private lazy var continueButton: UIButton = {
         let continueButton = UIButton()
         continueButton.backgroundColor = .orange
@@ -58,12 +55,12 @@ class ThirdViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50)
         configureStackView()
         progressStart()
     }
     
-    func configureStackView(){
+    private func configureStackView(){
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50)
         view.addSubview(stackView)
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
@@ -98,7 +95,7 @@ class ThirdViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    func progressStart() {
+    private func progressStart() {
         self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] (timer) in
             guard let self = self else { return }
             
