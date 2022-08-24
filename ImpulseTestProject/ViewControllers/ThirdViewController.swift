@@ -52,51 +52,21 @@ class ThirdViewController: UIViewController {
         continueButton.isEnabled = false
         return continueButton
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureStackView()
+        configureUI()
         progressStart()
     }
     
-    private func configureStackView(){
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50)
-        view.addSubview(stackView)
-        stackView.axis = .vertical
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 20
-        stackView.alignment = .center
-        stackView.addArrangedSubview(timerLabel)
-        stackView.addArrangedSubview(progressView)
-        stackView.addArrangedSubview(continueButton)
-
-        var constraints = [NSLayoutConstraint]()
-        constraints.append(stackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor))
-        constraints.append(stackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor))
-        constraints.append(stackView.widthAnchor.constraint(equalToConstant: view.frame.width - 30))
-        constraints.append(stackView.heightAnchor.constraint(equalToConstant: view.frame.height / 2))
-        
-        constraints.append(timerLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, constant: -60))
-        constraints.append(timerLabel.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.4))
-        
-        constraints.append(progressView.widthAnchor.constraint(equalTo: stackView.widthAnchor, constant: -60))
-        constraints.append(progressView.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.02))
-        
-        constraints.append(continueButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, constant: -60))
-        constraints.append(continueButton.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.15))
-
-        NSLayoutConstraint.activate(constraints)
-    }
-    
+    // MARK: - Functions
     @objc func continueButtonPressed() {
         print("continueButton in ThirdViewController Pressed")
-        
-        // watched == true + saved 🌝
         self.dismiss(animated: true)
     }
     
     private func progressStart() {
-        self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] (timer) in
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] (timer) in
             guard let self = self else { return }
             
             let seconds = self.progress.completedUnitCount
@@ -117,5 +87,37 @@ class ThirdViewController: UIViewController {
             let progressFloat = Float(self.progress.fractionCompleted)
             self.progressView.setProgress(progressFloat, animated: true)
         }
+    }
+}
+
+// MARK: - configure UI
+extension ThirdViewController {
+    private func configureUI(){
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50)
+        view.addSubview(stackView)
+        stackView.axis = .vertical
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 20
+        stackView.alignment = .center
+        stackView.addArrangedSubview(timerLabel)
+        stackView.addArrangedSubview(progressView)
+        stackView.addArrangedSubview(continueButton)
+        
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(stackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor))
+        constraints.append(stackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor))
+        constraints.append(stackView.widthAnchor.constraint(equalToConstant: view.frame.width - 30))
+        constraints.append(stackView.heightAnchor.constraint(equalToConstant: view.frame.height / 2))
+        
+        constraints.append(timerLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, constant: -60))
+        constraints.append(timerLabel.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.4))
+        
+        constraints.append(progressView.widthAnchor.constraint(equalTo: stackView.widthAnchor, constant: -60))
+        constraints.append(progressView.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.02))
+        
+        constraints.append(continueButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, constant: -60))
+        constraints.append(continueButton.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.15))
+        
+        NSLayoutConstraint.activate(constraints)
     }
 }
