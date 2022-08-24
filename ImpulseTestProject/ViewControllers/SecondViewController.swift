@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class SecondViewController: UIViewController {
     // MARK: - Variables/Constants
@@ -53,16 +54,14 @@ class SecondViewController: UIViewController {
     private lazy var images = ["firstImage", "secondImage", "thirdImage"]
     private lazy var mainLabels = ["Boost Productivity", "Work Seamlessly", "Achieve Your Goals"]
     private lazy var labels = ["Take your productivity to the next level", "Get your work done seamlessly without interruption", "Boosted productivity will help you achieve the desired goals"]
-    private lazy var coreDatadScreen: [Screen]? = nil
-    private lazy var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    private lazy var count = 0
+
+    private lazy var watched: [NSManagedObject] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         scrolView.delegate = self
         navigationController?.isNavigationBarHidden = true
         continueButton.isHidden = true
-        //        fetchCoreData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -91,34 +90,51 @@ class SecondViewController: UIViewController {
         print("ContinueButton pressed")
         self.fetchCoreData()
         
-        if count >= 1 {
-            let alert = UIAlertController(
-                title: "Thank you for your interest",
-                message: "The functionality is under development",
-                preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            self.present(alert, animated: true, completion: nil)
+        if watched.count > 0 {
+            presentAlert()
+        } else {
+            self.saveInCoreData(count: 1)
+            presentThirdVC()
         }
-        
+    }
+    
+    private func presentThirdVC() {
         let thirdVC = UINavigationController(rootViewController: ThirdViewController())
         thirdVC.modalPresentationStyle = .overCurrentContext
         thirdVC.modalTransitionStyle = .coverVertical
         present(thirdVC, animated: true)
+    }
+    
+    private func presentAlert() {
+        let alert = UIAlertController(
+            title: "Thank you for your interest",
+            message: "The functionality is under development",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func saveInCoreData(count: Int) {
+      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+          return
+      }
+      
+      let managedContext = appDelegate.persistentContainer.viewContext
+      
+      guard let entity = NSEntityDescription.entity(forEntityName: "Screen", in: managedContext) else {
+          return
+      }
+      
+      let screen = NSManagedObject(entity: entity, insertInto: managedContext)
         
-        // Create a cd object
-        let screen = Screen(context: self.context)
-        var watched = screen.watched
-        count = 1
-        screen.watched = Int16(count)
-        
-        // Save the data
-        do {
-            try self.context.save()
-        } catch {
-            print("An error while saving context")
-        }
-        // Re-fetch data
-        self.fetchCoreData()
+        screen.setValue(count, forKeyPath: "watched")
+
+      do {
+        try managedContext.save()
+          watched.append(screen)
+      } catch let error as NSError {
+        print("Could not save. \(error), \(error.userInfo)")
+      }
     }
     
     @objc private func pageControllDidChanged(_ sender: UIPageControl) {
@@ -129,14 +145,19 @@ class SecondViewController: UIViewController {
     }
     
     private func fetchCoreData() {
-        // Fetch data from Core Data
-        DispatchQueue.main.async {
-            do {
-                self.coreDatadScreen = try self.context.fetch(Screen.fetchRequest())
-            } catch {
-                print("An error while fetching some data from Core Data")
-            }
-        }
+          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+              return
+          }
+          
+          let managedContext = appDelegate.persistentContainer.viewContext
+          
+          let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Screen")
+          
+          do {
+              watched = try managedContext.fetch(fetchRequest)
+          } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+          }
     }
 }
 
