@@ -9,48 +9,48 @@ import UIKit
 
 class ThirdViewController: UIViewController {
     // MARK: - Variables/Constants
+    let buttonConfig = UIButton.Configuration.nextButtonSetUp(text: "Continue")
     private lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.backgroundColor = .darkGray
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = .init(top: 30, left: 20, bottom: 30, right: 20)
-        stackView.clipsToBounds = true
-        stackView.layer.cornerRadius = 30
-        return stackView
+        let value: UIStackView = .init()
+        value.backgroundColor = UIColor(red: 0.166, green: 0.169, blue: 0.175, alpha: 1)
+        value.translatesAutoresizingMaskIntoConstraints = false
+        value.isLayoutMarginsRelativeArrangement = true
+        value.layoutMargins = .init(
+            top: 30,
+            left: 20,
+            bottom: 30,
+            right: 20
+        )
+        value.clipsToBounds = true
+        value.layer.cornerRadius = 30
+        return value
     }()
     private lazy var progressView: UIProgressView = {
-        let progressView = UIProgressView(progressViewStyle: .default)
-        progressView.trackTintColor = .lightGray
-        progressView.progressTintColor = .orange
-        progressView.translatesAutoresizingMaskIntoConstraints = false
-        progressView.clipsToBounds = true
-        return progressView
+        let value: UIProgressView = .init(progressViewStyle: .default)
+        value.trackTintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.24)
+        value.progressTintColor = .orange
+        value.translatesAutoresizingMaskIntoConstraints = false
+        value.clipsToBounds = true
+        return value
     }()
     private let progress = Progress(totalUnitCount: 60)
     private var timer = Timer()
     private lazy var timerLabel: UILabel = {
-        let timerLabel = UILabel()
-        timerLabel.textColor = .white
-        timerLabel.textAlignment = NSTextAlignment.center
-        timerLabel.translatesAutoresizingMaskIntoConstraints = false
-        timerLabel.text = "00:00"
-        timerLabel.font = UIFont.systemFont(ofSize: 75, weight: .bold)
-        timerLabel.adjustsFontSizeToFitWidth = true
-        return timerLabel
+        let value = UILabel()
+        value.textColor = .white
+        value.textAlignment = NSTextAlignment.center
+        value.translatesAutoresizingMaskIntoConstraints = false
+        value.text = "00:00"
+        value.font = UIFont.systemFont(ofSize: 68, weight: .bold)
+        value.adjustsFontSizeToFitWidth = true
+        return value
     }()
     private lazy var continueButton: UIButton = {
-        let continueButton = UIButton()
-        continueButton.backgroundColor = .orange
-        continueButton.alpha = 0.5
-        continueButton.setTitleColor(.white, for: .normal)
-        continueButton.setTitle("Continue", for: .normal)
-        continueButton.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat(16), weight: .semibold)
-        continueButton.layer.cornerRadius = 10
-        continueButton.addTarget(self, action: #selector(continueButtonPressed), for: .touchUpInside)
-        continueButton.translatesAutoresizingMaskIntoConstraints = false
-        continueButton.isEnabled = false
-        return continueButton
+        let value = UIButton()
+        value.alpha = 0.5
+        value.configuration = buttonConfig
+        value.translatesAutoresizingMaskIntoConstraints = false
+        return value
     }()
     
     override func viewDidLoad() {
@@ -76,7 +76,7 @@ class ThirdViewController: UIViewController {
                 timer.invalidate()
                 print("timer is finished")
                 self.timerLabel.text = String(format: "%02i:%02i", minutes, 0)
-                self.continueButton.isEnabled = true
+                self.continueButton.addTarget(self, action: #selector(self.continueButtonPressed), for: .touchUpInside)
                 self.continueButton.alpha = 1.0
                 return
             }

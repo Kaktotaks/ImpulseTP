@@ -8,18 +8,17 @@
 import UIKit
 
 class FirstViewController: UIViewController {
-    
     // MARK: - Variables/Constants
+    let buttonConfig = UIButton.Configuration.nextButtonSetUp(text: "Start")
     private lazy var startButton: UIButton = {
-        let startButton = UIButton()
-        startButton.backgroundColor = .orange
-        startButton.setTitleColor(.white, for: .normal)
-        startButton.setTitle("Start", for: .normal)
-        startButton.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat(16), weight: .semibold)
-        startButton.layer.cornerRadius = 10
-        startButton.addTarget(self, action: #selector(startButtonPressed), for: .touchUpInside)
-        startButton.translatesAutoresizingMaskIntoConstraints = false
-        return startButton
+        let value: UIButton = .init()
+        value.configuration = buttonConfig
+        value.addTarget(
+            self,
+            action: #selector(startButtonPressed),
+            for: .touchUpInside)
+        value.translatesAutoresizingMaskIntoConstraints = false
+        return value
     }()
 
     override func viewDidLoad() {

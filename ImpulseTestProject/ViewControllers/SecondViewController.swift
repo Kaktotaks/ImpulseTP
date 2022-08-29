@@ -11,50 +11,58 @@ import CoreData
 class SecondViewController: UIViewController {
     // MARK: - Variables/Constants
     private lazy var image: UIImageView = {
-        let image: UIImageView = .init()
-        image.image = UIImage(named: "firstImage")
-        image.contentMode = .scaleAspectFit
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
+        let value: UIImageView = .init()
+        value.image = UIImage(named: "firstImage")
+        value.contentMode = .scaleAspectFit
+        value.translatesAutoresizingMaskIntoConstraints = false
+        return value
     }()
     private lazy var currentPage = 0
     private lazy var scrolView = UIScrollView()
     private lazy var pageControll: UIPageControl = {
-        let pageControll = UIPageControl()
-        pageControll.numberOfPages = 3
-        pageControll.backgroundColor = .black
-        pageControll.addTarget(self,
-                               action: #selector(pageControllDidChanged(_:)),
-                               for: .valueChanged)
-        pageControll.translatesAutoresizingMaskIntoConstraints = false
-        return pageControll
+        let value: UIPageControl = .init()
+        value.numberOfPages = 3
+        value.backgroundColor = .black
+        value.addTarget(
+            self,
+            action: #selector(pageControllDidChanged(_:)),
+            for: .valueChanged)
+        value.translatesAutoresizingMaskIntoConstraints = false
+        return value
     }()
     private lazy var nextButton: UIButton = {
-        let nextButton = UIButton()
-        nextButton.backgroundColor = .orange
-        nextButton.setTitleColor(.white, for: .normal)
-        nextButton.setTitle("Next", for: .normal)
-        nextButton.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat(16), weight: .semibold)
-        nextButton.layer.cornerRadius = 10
-        nextButton.addTarget(self, action: #selector(nextButtonPressed), for: .touchUpInside)
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
-        return nextButton
+        let value: UIButton = .init()
+        value.configuration = UIButton.Configuration.nextButtonSetUp(text: "Next")
+        value.addTarget(
+            self,
+            action: #selector(nextButtonPressed),
+            for: .touchUpInside)
+        value.translatesAutoresizingMaskIntoConstraints = false
+        return value
     }()
     private lazy var continueButton: UIButton = {
-        let nextButton = UIButton()
-        nextButton.backgroundColor = .orange
-        nextButton.setTitleColor(.white, for: .normal)
-        nextButton.setTitle("Continue", for: .normal)
-        nextButton.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat(16), weight: .semibold)
-        nextButton.layer.cornerRadius = 10
-        nextButton.addTarget(self, action: #selector(continueButtonPressed), for: .touchUpInside)
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
-        return nextButton
+        let value: UIButton = .init()
+        value.configuration = UIButton.Configuration.nextButtonSetUp(text: "Continue")
+        value.addTarget(self, action: #selector(continueButtonPressed), for: .touchUpInside)
+        value.translatesAutoresizingMaskIntoConstraints = false
+        return value
     }()
-    private lazy var images = ["firstImage", "secondImage", "thirdImage"]
-    private lazy var mainLabels = ["Boost Productivity", "Work Seamlessly", "Achieve Your Goals"]
-    private lazy var labels = ["Take your productivity to the next level", "Get your work done seamlessly without interruption", "Boosted productivity will help you achieve the desired goals"]
-
+    private lazy var images = [
+        "firstImage",
+        "secondImage",
+        "thirdImage"
+    ]
+    private lazy var mainLabels = [
+        "Boost Productivity",
+        "Work Seamlessly",
+        "Achieve Your Goals"
+    ]
+    private lazy var labels = [
+        "Take your productivity to the next level",
+        "Get your work done seamlessly without interruption",
+        "Boosted productivity will help you achieve the desired goals"
+    ]
+    
     private lazy var watched: [NSManagedObject] = []
     
     override func viewDidLoad() {
@@ -81,9 +89,11 @@ class SecondViewController: UIViewController {
             currentPage = 2
         }
         pageControll.currentPage = currentPage
-        scrolView.setContentOffset(CGPoint(x: CGFloat(currentPage) * view.frame.size.width,
-                                           y: 0),
-                                   animated: true)
+        scrolView.setContentOffset(
+            CGPoint(
+                x: CGFloat(currentPage) * view.frame.size.width,
+                y: 0),
+            animated: true)
     }
     
     @objc func continueButtonPressed() {
@@ -115,49 +125,64 @@ class SecondViewController: UIViewController {
     }
     
     private func saveInCoreData(count: Int) {
-      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-          return
-      }
-      
-      let managedContext = appDelegate.persistentContainer.viewContext
-      
-      guard let entity = NSEntityDescription.entity(forEntityName: "Screen", in: managedContext) else {
-          return
-      }
-      
-      let screen = NSManagedObject(entity: entity, insertInto: managedContext)
+        guard
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        else {
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        guard
+            let entity = NSEntityDescription.entity(
+                forEntityName: "Screen",
+                in: managedContext
+            )
+        else {
+            return
+        }
+        
+        let screen = NSManagedObject(
+            entity: entity,
+            insertInto: managedContext
+        )
         
         screen.setValue(count, forKeyPath: "watched")
-
-      do {
-        try managedContext.save()
-          watched.append(screen)
-      } catch let error as NSError {
-        print("Could not save. \(error), \(error.userInfo)")
-      }
+        
+        do {
+            try managedContext.save()
+            watched.append(screen)
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
     }
     
     @objc private func pageControllDidChanged(_ sender: UIPageControl) {
         let current = sender.currentPage
-        scrolView.setContentOffset(CGPoint(x: CGFloat(current) * view.frame.size.width,
-                                           y: 0),
-                                   animated: true)
+        scrolView.setContentOffset(
+            CGPoint(
+                x: CGFloat(current) * view.frame.size.width,
+                y: 0),
+            animated: true
+        )
     }
     
     private func fetchCoreData() {
-          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-              return
-          }
-          
-          let managedContext = appDelegate.persistentContainer.viewContext
-          
-          let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Screen")
-          
-          do {
-              watched = try managedContext.fetch(fetchRequest)
-          } catch let error as NSError {
+        guard
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        else {
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Screen")
+        
+        do {
+            watched = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
-          }
+        }
     }
 }
 
@@ -208,31 +233,54 @@ extension SecondViewController {
     }
     
     private func configureScrollView() {
-        scrolView.contentSize = CGSize(width: view.frame.size.width*3, height: scrolView.frame.size.height)
+        scrolView.contentSize = CGSize(
+            width: view.frame.size.width*3,
+            height: scrolView.frame.size.height
+        )
         scrolView.isPagingEnabled = true
         scrolView.showsVerticalScrollIndicator = false
         scrolView.showsHorizontalScrollIndicator = false
         scrolView.bounces = false
         
         for x in 0..<3 {
-            let page = UIView(frame: CGRect(x: CGFloat(x) * view.frame.size.width,
-                                            y: view.safeAreaInsets.bottom,
-                                            width: view.frame.size.width,
-                                            height: scrolView.frame.size.height))
+            let page = UIView(
+                frame: CGRect(
+                    x: CGFloat(x) * view.frame.size.width,
+                    y: view.safeAreaInsets.bottom,
+                    width: view.frame.size.width,
+                    height: scrolView.frame.size.height
+                )
+            )
             page.translatesAutoresizingMaskIntoConstraints = false
             
             let uiImage = UIImage(named: "\(images[x])")
-            let imageView = UIImageView(frame: CGRect(x: view.frame.midX - (view.frame.width / 2.6) , y: view.frame.midY - (view.frame.height / 1.8), width: view.frame.width / 1.3, height: view.frame.height / 1.2))
+            let imageView = UIImageView(
+                frame: CGRect(
+                    x: view.frame.midX - (view.frame.width / 2.6) ,
+                    y: view.frame.midY - (view.frame.height / 1.6),
+                    width: view.frame.width / 1.3,
+                    height: view.frame.height / 1.2)
+            )
             imageView.contentMode = .scaleAspectFit
             imageView.image = uiImage
             
-            let mainLabel = UILabel(frame: CGRect(x: view.frame.midX - (view.frame.width / 2.4), y: view.frame.maxY - (view.frame.width / 1.25), width: view.frame.width / 1.2, height: 40))
+            let mainLabel = UILabel(
+                frame: CGRect(
+                    x: view.frame.midX - (view.frame.width / 2.4),
+                    y: view.frame.maxY - (view.frame.width / 1.25),
+                    width: view.frame.width / 1.2,
+                    height: 40))
             mainLabel.textAlignment = .center
             mainLabel.font = .systemFont(ofSize: 28, weight: .bold)
             mainLabel.textColor = .white
             mainLabel.text = mainLabels[x]
             
-            let label = UILabel(frame: CGRect(x: view.frame.midX - (view.frame.width / 2.6), y: view.frame.maxY - (view.frame.width / 1.4) + 8, width: view.frame.width / 1.3, height: 50))
+            let label = UILabel(
+                frame: CGRect(
+                    x: view.frame.midX - (view.frame.width / 2.6),
+                    y: view.frame.maxY - (view.frame.width / 1.4) + 8,
+                    width: view.frame.width / 1.3,
+                    height: 50))
             label.numberOfLines = 0
             label.textAlignment = .center
             label.textColor = .white
@@ -240,7 +288,6 @@ extension SecondViewController {
             label.text = labels[x]
             
             scrolView.addSubview(page)
-            
             page.addSubview(label)
             page.addSubview(mainLabel)
             page.addSubview(imageView)

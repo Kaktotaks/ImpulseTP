@@ -18,6 +18,7 @@
 		E46D3A8728ACD8D500CD4776 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E46D3A8528ACD8D500CD4776 /* LaunchScreen.storyboard */; };
 		E46D3A9528ACD9C600CD4776 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46D3A9428ACD9C600CD4776 /* SecondViewController.swift */; };
 		E46D3A9728ACD9EA00CD4776 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46D3A9628ACD9EA00CD4776 /* ThirdViewController.swift */; };
+		E46EAA8E28BCFF5300606204 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EAA8D28BCFF5300606204 /* UIButtonExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		E46D3A8828ACD8D500CD4776 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E46D3A9428ACD9C600CD4776 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		E46D3A9628ACD9EA00CD4776 /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
+		E46EAA8D28BCFF5300606204 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		E46D3A7628ACD8D400CD4776 /* ImpulseTestProject */ = {
 			isa = PBXGroup;
 			children = (
+				E46EAA8C28BCFF3A00606204 /* UIButtonExtension */,
 				E46D3A9328ACD9A700CD4776 /* ViewControllers */,
 				E46D3A9228ACD94200CD4776 /* CoreDataModel */,
 				E46D3A7728ACD8D400CD4776 /* AppDelegate.swift */,
@@ -96,6 +99,14 @@
 				E46D3A9628ACD9EA00CD4776 /* ThirdViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E46EAA8C28BCFF3A00606204 /* UIButtonExtension */ = {
+			isa = PBXGroup;
+			children = (
+				E46EAA8D28BCFF5300606204 /* UIButtonExtension.swift */,
+			);
+			path = UIButtonExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +185,7 @@
 				E46D3A8228ACD8D400CD4776 /* ImpulseTestProject.xcdatamodeld in Sources */,
 				E46D3A7828ACD8D400CD4776 /* AppDelegate.swift in Sources */,
 				E46D3A9528ACD9C600CD4776 /* SecondViewController.swift in Sources */,
+				E46EAA8E28BCFF5300606204 /* UIButtonExtension.swift in Sources */,
 				E4355FE028B4078B007ADB75 /* Screen+CoreDataProperties.swift in Sources */,
 				E46D3A9728ACD9EA00CD4776 /* ThirdViewController.swift in Sources */,
 				E46D3A7A28ACD8D400CD4776 /* SceneDelegate.swift in Sources */,
